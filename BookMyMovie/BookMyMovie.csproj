@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookMyMovie.DB\BookMyMovie.DB.csproj" />
+    <ProjectReference Include="..\BookMyMovie.Services\BookMyMovie.Services.csproj" />
     <ProjectReference Include="..\BookMyMovie.ViewModels\BookMyMovie.ViewModels.csproj" />
   </ItemGroup>
 
