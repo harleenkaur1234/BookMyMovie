@@ -14,8 +14,8 @@ namespace BookMyMovie.Services.Interface
 
         public Movie GetMovie(long Id);
 
-        public Movie UpdateMovie(Movie movie);
+        //public Movie UpdateMovie(long id,Movie movie);
 
-        public Movie DeleteMovie(long Id);
+        public string DeleteMovie(long Id);
     }
 }
