@@ -50,24 +50,13 @@ namespace BookMyMovie.Services.Implementation
         }
 
 
-        //public Movie UpdateMovie(long id,Movie movie)
-        //{
-        //    var result = _bookDbContext.Movies.Include(x=>x.ShowTimes).FirstOrDefault(x => x.Id == movie.Id);
-        //    if (result != null)
-        //    {
-        //        var map = _mapper.Map<Movie>(movie);
-        //        /* result.MovieName = movie.MovieName;
-        //         result.Director = movie.Director;
-        //         result.Cast = movie.Cast;
-        //         result.Genre = movie.Genre;
-        //         result.ReleaseDate = movie.ReleaseDate;
-        //         result.Language = movie.Language;*/
-        //        _bookDbContext.Movies.Update(map);
-        //        _bookDbContext.SaveChanges();
-        //        return map;
-        //    }
-        //    return null;
-        //}
+        public Movie UpdateMovie(UpdateMovieView updateMovie)
+        {
+            var movieModel = _mapper.Map<Movie>(updateMovie);
+            _bookDbContext.Movies.Update(movieModel);
+                _bookDbContext.SaveChanges();
+                return movieModel;
+        }
 
         public string DeleteMovie(long Id)
         {
