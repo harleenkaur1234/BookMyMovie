@@ -50,5 +50,71 @@ namespace BookMyMovie.Controllers
             }
 
         }
+        [HttpGet("GetMovie/{Id:long}")]
+        public ActionResult<Movie> GetMovie(long Id)
+        {
+            try
+            {
+                var result = _movieService.GetMovie(Id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+
+        }
+
+        //[HttpPut("{id}")]
+        //public ActionResult<Movie> UpdateMovie(long id, Movie movie)
+        //{
+            
+        //    try
+        //    {
+
+        //        if (id != movie.Id)
+        //        {
+        //            return BadRequest("Id not match");
+        //        }
+
+        //        var result = _movieService.GetMovie(id);
+        //        if (result == null)
+        //        {
+        //            return NotFound($"Movie Id = {id} not Found");
+        //        }
+
+        //        return _movieService.UpdateMovie(movie);
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error in updating data in database");
+        //    }
+        //}
+
+        [HttpDelete("{id}")]
+        public ActionResult<string> DeleteMovie(long id)
+        {
+            try
+            {
+                var findMovie = _movieService.GetMovie(id);
+                if (findMovie == null)
+                {
+                    return NotFound($"Movie Id = {id} not Found");
+                }
+
+               
+                return _movieService.DeleteMovie(id);
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in deleting data in database");
+            }
+        }
     }
 }

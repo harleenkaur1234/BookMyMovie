@@ -36,16 +36,6 @@ namespace BookMyMovie.Services.Implementation
             }
         }
 
-        public Movie DeleteMovie(long Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Movie GetMovie(long Id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<Movie>> GetMovies()
         {
             return await _bookDbContext.Movies
@@ -54,9 +44,41 @@ namespace BookMyMovie.Services.Implementation
         }
 
 
-        public Movie UpdateMovie(Movie movie)
+        public Movie GetMovie(long Id)
         {
-            throw new NotImplementedException();
+            return _bookDbContext.Movies.Include(x=>x.ShowTimes).Where(x => x.Id == Id).FirstOrDefault();
+        }
+
+
+        //public Movie UpdateMovie(long id,Movie movie)
+        //{
+        //    var result = _bookDbContext.Movies.Include(x=>x.ShowTimes).FirstOrDefault(x => x.Id == movie.Id);
+        //    if (result != null)
+        //    {
+        //        var map = _mapper.Map<Movie>(movie);
+        //        /* result.MovieName = movie.MovieName;
+        //         result.Director = movie.Director;
+        //         result.Cast = movie.Cast;
+        //         result.Genre = movie.Genre;
+        //         result.ReleaseDate = movie.ReleaseDate;
+        //         result.Language = movie.Language;*/
+        //        _bookDbContext.Movies.Update(map);
+        //        _bookDbContext.SaveChanges();
+        //        return map;
+        //    }
+        //    return null;
+        //}
+
+        public string DeleteMovie(long Id)
+        {
+            var findMovie = _bookDbContext.Movies.Include(x => x.ShowTimes).Where(a => a.Id == Id).FirstOrDefault();
+            if (findMovie != null)
+            {
+                _bookDbContext.Movies.Remove(findMovie);
+                _bookDbContext.SaveChanges();
+                return "Movie is deleted successfully";
+            }
+            return null;
         }
     }
 }
