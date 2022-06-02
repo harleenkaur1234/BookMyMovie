@@ -69,32 +69,31 @@ namespace BookMyMovie.Controllers
 
         }
 
-        //[HttpPut("{id}")]
-        //public ActionResult<Movie> UpdateMovie(long id, Movie movie)
-        //{
+        [HttpPut("{id}")]
+        public ActionResult<Movie> UpdateMovie(long id, UpdateMovieView updateMovie)
+        {
+            try
+            {
+                if (id != updateMovie.ID)
+                {
+                    return BadRequest("Id not match");
+                }
+                var result = _movieService.GetMovie(id);
+                if (result == null)
+                {
+                    return NotFound($"Movie Id = {id} not Found");
+                }
+                //return _movieService.UpdateMovie(movie);
+                return _movieService.UpdateMovie(updateMovie);
+            }
+
+
             
-        //    try
-        //    {
-
-        //        if (id != movie.Id)
-        //        {
-        //            return BadRequest("Id not match");
-        //        }
-
-        //        var result = _movieService.GetMovie(id);
-        //        if (result == null)
-        //        {
-        //            return NotFound($"Movie Id = {id} not Found");
-        //        }
-
-        //        return _movieService.UpdateMovie(movie);
-
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error in updating data in database");
-        //    }
-        //}
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in updating data in database");
+            }
+        }
 
         [HttpDelete("{id}")]
         public ActionResult<string> DeleteMovie(long id)
