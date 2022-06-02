@@ -13,6 +13,7 @@ namespace BookMyMovie.AutoMapper
             CreateMap<SeatView, Seat>().ReverseMap();
             CreateMap<CinemaView, Cinema>().ReverseMap();
             CreateMap<ShowTimeView, ShowTime>().ReverseMap();
+            CreateMap<UpdateMovieView, Movie>().ReverseMap();
 
         }
     }

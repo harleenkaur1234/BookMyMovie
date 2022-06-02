@@ -21,7 +21,6 @@ namespace BookMyMovie.ViewModels
 
         public DateTime Duration { get; set; }
 
-        //public List<MovieReview> MovieReviews { get; set; } = new List<MovieReview>();
         public List<ShowTimeView> ShowTimes { get; set; } = new List<ShowTimeView>();
     }
 }
