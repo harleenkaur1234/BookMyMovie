@@ -10,6 +10,6 @@ namespace BookMyMovie.Models
         public string CinemaName { get; set; }
         public string Location { get; set; }
         public List<Theater> Theaters { get; set; } = new List<Theater>();
-        public List<Seat> Seats { get; set; } = new List<Seat>();
+        
     }
 }
