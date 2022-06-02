@@ -3,9 +3,12 @@ using BookMyMovie.DB;
 using BookMyMovie.Models;
 using BookMyMovie.Services.Interface;
 using BookMyMovie.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BookMyMovie.Services.Implementation
 {
@@ -43,10 +46,13 @@ namespace BookMyMovie.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public List<Movie> GetMovies()
+        public async Task<List<Movie>> GetMovies()
         {
-            throw new NotImplementedException();
+            return await _bookDbContext.Movies
+                .Include(x => x.ShowTimes)
+                .ToListAsync();
         }
+
 
         public Movie UpdateMovie(Movie movie)
         {
