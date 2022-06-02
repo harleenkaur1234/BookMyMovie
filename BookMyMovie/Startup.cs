@@ -1,5 +1,7 @@
 using BookMyMovie.AutoMapper;
 using BookMyMovie.DB;
+using BookMyMovie.Services.Implementation;
+using BookMyMovie.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +34,7 @@ namespace BookMyMovie
             services.AddControllers();
             services.AddMvc();
             services.AddDbContext<BookMyMovieDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IMovieService, MovieService>();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {
