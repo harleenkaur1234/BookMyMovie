@@ -48,12 +48,21 @@ namespace BookMyMovie.Services.Implementation
         {
             return _bookDbContext.Movies.Include(x=>x.ShowTimes).Where(x => x.Id == Id).FirstOrDefault();
         }
+
+
+
+
         public Movie UpdateMovie(UpdateMovieView updateMovie)
         {
             var movieModel = _mapper.Map<Movie>(updateMovie);
             _bookDbContext.Movies.Update(movieModel);
+
+                _bookDbContext.SaveChanges();
+                return movieModel;
+
             _bookDbContext.SaveChanges();
             return movieModel;
+
         }
 
         public string DeleteMovie(long Id)

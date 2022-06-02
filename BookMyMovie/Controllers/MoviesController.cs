@@ -70,6 +70,15 @@ namespace BookMyMovie.Controllers
         }
 
         [HttpPut("{id}")]
+
+        public ActionResult<Movie> UpdateMovie(long Id,UpdateMovieView updateMovie)
+        {
+            try
+            {
+                return _movieService.UpdateMovie(updateMovie);
+
+            }
+
         public ActionResult<Movie> UpdateMovie(long id, UpdateMovieView updateMovie)
         {
             try
@@ -89,6 +98,7 @@ namespace BookMyMovie.Controllers
 
 
             
+
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error in updating data in database");
