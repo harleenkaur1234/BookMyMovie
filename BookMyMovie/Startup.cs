@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lamar;
+using Lamar.Microsoft.DependencyInjection;
 
 namespace BookMyMovie
 {
@@ -32,9 +34,10 @@ namespace BookMyMovie
         {
             services.AddAutoMapper(typeof(AppProfile));
             services.AddControllers();
+            services.AddLamar(new Registry());
             services.AddMvc();
             services.AddDbContext<BookMyMovieDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IMovieService, MovieService>();
+            //services.AddScoped<IMovieService, MovieService>();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {

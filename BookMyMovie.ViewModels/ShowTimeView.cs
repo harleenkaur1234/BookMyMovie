@@ -12,6 +12,6 @@ namespace BookMyMovie.ViewModels
 
         public string Time { get; set; }
         public double TicketPrice { get; set; }
-        public MovieView MovieVM { get; set; }
+        public long MovieId { get; set; }
     }
 }

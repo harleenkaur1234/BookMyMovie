@@ -13,6 +13,6 @@ namespace BookMyMovie.Models
         public DateTime Date { get; set; }
         public string Time { get; set; }
         public double TicketPrice { get; set; }
-        public Movie Movie { get; set; }
+        public long MovieId { get; set; }
     }
 }

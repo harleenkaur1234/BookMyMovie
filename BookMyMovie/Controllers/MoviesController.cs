@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using BookMyMovie.DB;
+using BookMyMovie.Models;
 using BookMyMovie.Services.Interface;
 using BookMyMovie.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BookMyMovie.Controllers
 {
@@ -16,7 +18,7 @@ namespace BookMyMovie.Controllers
         private readonly BookMyMovieDbContext _bookDbContext;
         private readonly IMovieService _movieService;
 
-        public MoviesController(BookMyMovieDbContext bookDbContext, IMovieService movieService, IMapper mapper)
+        public MoviesController(BookMyMovieDbContext bookDbContext, IMovieService movieService)
         {
             _bookDbContext = bookDbContext;
             this._movieService = movieService;
@@ -33,6 +35,20 @@ namespace BookMyMovie.Controllers
             {
                 return StatusCode(StatusCodes.Status400BadRequest, "Error occurred while saving a movie");
             }
+        }
+
+        [HttpGet("GetMovies")]
+        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        {
+            try
+            {
+                return await _movieService.GetMovies();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+
         }
     }
 }
