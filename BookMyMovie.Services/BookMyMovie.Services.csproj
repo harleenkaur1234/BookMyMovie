@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookMyMovie.DB\BookMyMovie.DB.csproj" />
+    <ProjectReference Include="..\BookMyMovie.Models\BookMyMovie.Models.csproj" />
+    <ProjectReference Include="..\BookMyMovie.ViewModels\BookMyMovie.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
