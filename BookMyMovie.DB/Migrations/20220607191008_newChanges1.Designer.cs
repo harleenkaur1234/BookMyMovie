@@ -4,14 +4,16 @@ using BookMyMovie.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookMyMovie.DB.Migrations
 {
     [DbContext(typeof(BookMyMovieDbContext))]
-    partial class BookMyMovieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220607191008_newChanges1")]
+    partial class newChanges1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,7 +129,7 @@ namespace BookMyMovie.DB.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("MovieId")
+                    b.Property<long?>("MovieId")
                         .HasColumnType("bigint");
 
                     b.Property<double>("TicketPrice")
@@ -180,9 +182,7 @@ namespace BookMyMovie.DB.Migrations
                 {
                     b.HasOne("BookMyMovie.Models.Movie", null)
                         .WithMany("ShowTimes")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MovieId");
                 });
 #pragma warning restore 612, 618
         }

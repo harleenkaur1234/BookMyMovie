@@ -36,12 +36,12 @@ namespace BookMyMovie.Controllers
             }
         }
 
-        [HttpGet("GetMovies")]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        [HttpGet("GetMovieNames")]
+        public async Task<ActionResult<IEnumerable<MovieNameView>>> GetMovieNames()
         {
             try
             {
-                return await _movieService.GetMovies();
+                return await _movieService.GetMovieNames();
             }
             catch (Exception e)
             {
@@ -49,12 +49,31 @@ namespace BookMyMovie.Controllers
             }
 
         }
-        [HttpGet("GetMovie/{Id:long}")]
-        public ActionResult<Movie> GetMovie(long Id)
+
+        [HttpGet("GetMovieDetailByName")]
+        public ActionResult<MovieView> GetMovieDetailByName(string movieName)
+         {
+            try
+            {
+                var result = _movieService.GetMovieDetailByName(movieName);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+
+        }
+        [HttpGet("GetMovieByDirectorName")]
+        public async Task<ActionResult<IEnumerable<MovieNameView>>> GetMoviesByDirector(string director)
         {
             try
             {
-                var result = _movieService.GetMovie(Id);
+                var result = await _movieService.GetMoviesByDirector(director);
                 if (result == null)
                 {
                     return NotFound();
@@ -68,10 +87,115 @@ namespace BookMyMovie.Controllers
 
         }
 
+        [HttpGet("GetMoviesByGenre")]
+        public async Task<ActionResult<IEnumerable<MovieGenreViewModel>>> GetMoviesByGenre(string genre)
+        {
+            try
+            {
+                var result = await _movieService.GetMoviesByGenre(genre);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+
+        }
+        [HttpGet("GetMoviesByLanguage")]
+        public async Task<ActionResult<IEnumerable<MovieLanguageViewModel>>> GetMoviesByLanguage(string language)
+        {
+            try
+            {
+                var result = await _movieService.GetMoviesByLanguage(language);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+
+        }
+
+        [HttpGet("GetMoviesDetails")]
+        public async Task<ActionResult<IEnumerable<MovieView>>> GetMoviesDetails()
+        {
+            try
+            {
+                return await _movieService.GetMoviesDetails();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+
+        }
+
+        [HttpGet("GetMovieDetailById")]
+        public ActionResult<MovieByIdView> GetMovieById(long id)
+        {
+            try
+            {
+                var result = _movieService.GetMovieById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+        }
+
+        [HttpGet("GetActorByMovieName")]
+        public ActionResult<ActorByMovieName> GetActors(string movieName)
+        {
+            try
+            {
+                var result = _movieService.GetActors(movieName);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+            }
+        }
+        //[HttpGet("GetMovie/{Id:long}")]
+        //public ActionResult<Movie> GetMovie(long Id)
+        //{
+        //    try
+        //    {
+        //        var result = _movieService.GetMovie(Id);
+        //        if (result == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        return result;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error in Retrieving data from database");
+        //    }
+
+        //}
+
         //[HttpPut("{id}")]
         //public ActionResult<Movie> UpdateMovie(long id, Movie movie)
         //{
-            
+
         //    try
         //    {
 
@@ -100,13 +224,13 @@ namespace BookMyMovie.Controllers
         {
             try
             {
-                var findMovie = _movieService.GetMovie(id);
+                var findMovie = _movieService.GetMovieById(id);
                 if (findMovie == null)
                 {
                     return NotFound($"Movie Id = {id} not Found");
                 }
 
-               
+
                 return _movieService.DeleteMovie(id);
 
             }
@@ -115,5 +239,7 @@ namespace BookMyMovie.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error in deleting data in database");
             }
         }
+
     }
-}
+    }
+

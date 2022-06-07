@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace BookMyMovie.Models
@@ -8,7 +9,7 @@ namespace BookMyMovie.Models
     public class Movie
     {
         [Key]
-        [Required]
+
         public long Id { get; set; }
 
         [Required]
@@ -23,13 +24,14 @@ namespace BookMyMovie.Models
         [MaxLength(20)]
         public string Genre { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "date")]
         public DateTime ReleaseDate { get; set; }
 
         [MaxLength(20)]
         public string Language { get; set; }
-   
+        //[Column(TypeName = "time")]
         public DateTime Duration { get; set; }
         public List<ShowTime> ShowTimes { get; set; }
     }

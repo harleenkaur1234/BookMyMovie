@@ -17,6 +17,13 @@ namespace BookMyMovie.DB
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Booking> Customers { get; set; }
         public DbSet<ShowTime> ShowTimes { get; set; }
-   
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<Movie>().
+        //        Property(p => p.ReleaseDate)
+        //        .HasColumnType("date");
+        //}
+
     }
 }

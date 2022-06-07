@@ -15,7 +15,6 @@ namespace BookMyMovie.Models
 
         [MaxLength(30)]
         public string Location { get; set; }
-        public List<Theater> Theaters { get; set; }
         
     }
 }
