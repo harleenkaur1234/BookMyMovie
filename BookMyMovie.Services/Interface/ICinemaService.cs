@@ -13,9 +13,6 @@ namespace BookMyMovie.Services.Interface
         public Task<List<Cinema>> GetAllCinemas();
 
         public Cinema GetCinema(long Id);
-
-   
-
         public string DeleteCinema(long Id);
     }
 }

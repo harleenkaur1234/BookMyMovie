@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyMovie.DB.Migrations
 {
     [DbContext(typeof(BookMyMovieDbContext))]
-    [Migration("20220602194613_fourth")]
-    partial class fourth
+    [Migration("20220607201840_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,10 +44,12 @@ namespace BookMyMovie.DB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CinemaName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
 
@@ -65,23 +67,27 @@ namespace BookMyMovie.DB.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Director")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("Duration")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Genre")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Language")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("MovieName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -96,10 +102,12 @@ namespace BookMyMovie.DB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsOccupied")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasMaxLength(10);
 
                     b.Property<string>("SeatNo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<long?>("TheaterId")
                         .HasColumnType("bigint");
@@ -125,9 +133,11 @@ namespace BookMyMovie.DB.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<double>("TicketPrice")
-                        .HasColumnType("float");
+                        .HasColumnType("float")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Time")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -144,21 +154,19 @@ namespace BookMyMovie.DB.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CinemaId")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsBooked")
                         .HasColumnType("bit");
 
                     b.Property<string>("TheaterName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("TotalSeats")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CinemaId");
 
                     b.ToTable("Theaters");
                 });
@@ -177,13 +185,6 @@ namespace BookMyMovie.DB.Migrations
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BookMyMovie.Models.Theater", b =>
-                {
-                    b.HasOne("BookMyMovie.Models.Cinema", null)
-                        .WithMany("Theaters")
-                        .HasForeignKey("CinemaId");
                 });
 #pragma warning restore 612, 618
         }
